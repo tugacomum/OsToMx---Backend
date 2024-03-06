@@ -36,6 +36,18 @@ export async function executeScript(jsonData: any) {
           const attribute = domainmodels.Attribute.createIn(entity);
           attribute.name = attributeName;
           attribute.type = attributeType;
+
+          // define default value de boolean para false e caso seja string/decimals atribui o valor vindo do json
+
+          if (attributeType instanceof domainmodels.StringAttributeType) {
+            attributeType.length = length ? parseInt(attributeData.Length, 10) : 50;
+          } else if (attributeType instanceof domainmodels.BooleanAttributeType) {
+            domainmodels.StoredValue.createIn(attribute).defaultValue = "false";
+          } else if (attributeType instanceof domainmodels.DecimalAttributeType) {
+            domainmodels.StoredValue.createIn(attribute).defaultValue = attributeData.Length ? parseInt(attributeData.Length, 10).toString() : "10";
+          } 
+
+          // criar relação default de 1 para n caso o Id da entidade seja "exemplo Identifier"
         }
       }
     }
