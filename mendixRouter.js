@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const validator = require('validator');
 const { executeScript } = require('./script');
  
 router.use(express.json());
