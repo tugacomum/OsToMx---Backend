@@ -29,20 +29,18 @@ async function executeScript(jsonData) {
                     const attribute = mendixmodelsdk_1.domainmodels.Attribute.createIn(entity);
                     attribute.name = attributeName;
                     attribute.type = attributeType;
-                    // define string/decimals e atribui o valor vindo do json
                     if (attributeType instanceof mendixmodelsdk_1.domainmodels.StringAttributeType) {
                         attributeType.length = attributeData.Length ? parseInt(attributeData.Length, 10) : 50;
                     }
                     else if (attributeType instanceof mendixmodelsdk_1.domainmodels.DecimalAttributeType) {
                         mendixmodelsdk_1.domainmodels.StoredValue.createIn(attribute).defaultValue = attributeData.Decimals ? parseInt(attributeData.Decimals, 10).toString() : "10";
                     }
-                    // criar relação default de 1 para n caso o Id da entidade seja "exemplo Identifier"
-                    for (const indexData of entityData.Indexes) {
-                        const indexName = indexData.Name;
-                        const index = mendixmodelsdk_1.domainmodels.Index.createIn(entity);
-                        const indexx = mendixmodelsdk_1.domainmodels.IndexedAttribute.createIn(index);
-                        indexx.attribute = indexName;
-                    }
+                    /*for (const indexData of entityData.Indexes) {
+                      const indexName = indexData.Name;
+                      const index = domainmodels.Index.createIn(entity);
+                      const indexx = domainmodels.IndexedAttribute.createIn(index);
+                      indexx.attribute = indexName;
+                    }*/
                 }
             }
         }

@@ -6,12 +6,29 @@ const { executeScript } = require('./script');
 router.post('/generatemendixapp', async (req, res) => {
     try {
         const jsonData = req.body;
-        
-        await executeScript(jsonData);
 
-        res.status(200).json({ message: "Script executed successfully" });
+        const response = {
+            HasError: false,
+            ErrorMessage: "Internal Server Error",
+        }
+
+        if (!jsonData || Object.keys(jsonData).length === 0) {
+            response.HasError = true;
+            response.ErrorMessage = "Json Required!";
+            res.status(500).json(response);
+        } else {
+            response.HasError = false;
+            response.ErrorMessage = "Script executed successfully!";
+            await executeScript(jsonData);
+            res.status(200).json(response);
+        }
     } catch (error) {
-        res.status(500).json({ message: "Something went wrong" });
+        const response = {
+            HasError: true,
+            ErrorMessage: error.message || "Internal Server Error"
+        }
+
+        res.status(500).json(response);
     }
 });
 
