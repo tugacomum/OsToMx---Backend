@@ -42,13 +42,6 @@ export async function executeScript(jsonData: any) {
           } else if (attributeType instanceof domainmodels.DecimalAttributeType) {
             domainmodels.StoredValue.createIn(attribute).defaultValue = attributeData.Decimals ? parseInt(attributeData.Decimals, 10).toString() : "10";
           } 
-
-          /*for (const indexData of entityData.Indexes) {
-            const indexName = indexData.Name;
-            const index = domainmodels.Index.createIn(entity); 
-            const indexx = domainmodels.IndexedAttribute.createIn(index);
-            indexx.attribute = indexName;
-          }*/
         }
       }
     }
